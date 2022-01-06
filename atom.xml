@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://nymphy2.github.io</id>
+    <title>Gridea</title>
+    <updated>2022-01-06T07:39:43.756Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://nymphy2.github.io"/>
+    <link rel="self" href="https://nymphy2.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://nymphy2.github.io/images/avatar.png</logo>
+    <icon>https://nymphy2.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[二分刷题笔记]]></title>
+        <id>https://nymphy2.github.io/post/er-fen-shua-ti-bi-ji/</id>
+        <link href="https://nymphy2.github.io/post/er-fen-shua-ti-bi-ji/">
+        </link>
+        <updated>2022-01-06T07:36:13.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0">算法笔记</a>
+<ul>
+<li><a href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">二分查找</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE1-%E5%9F%BA%E6%9C%AC%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">题目1 基本二分查找</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE2%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE">题目2搜索插入位置</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE3-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE">题目3 在排序数组中查找元素的第一个和最后一个位置</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE4%E6%B1%82%E5%B9%B3%E6%96%B9%E6%A0%B9">题目4求平方根</a></li>
+</ul>
+</li>
+<li><a href="#%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0">移除元素</a>
+<ul>
+<li><a href="#%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%E9%93%BE%E6%8E%A5">移除元素链接</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9%E9%93%BE%E6%8E%A5">删除有序数组的重复项链接</a></li>
+</ul>
+</li>
+<li><a href="#%E7%A7%BB%E5%8A%A8%E9%9B%B6%E9%93%BE%E6%8E%A5">移动零链接</a></li>
+<li><a href="#%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9">有序数组的平方</a></li>
+<li><a href="#%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84">长度最小的子数组</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%97%E4%B8%B2">最小覆盖字串</a></li>
+<li><a href="#%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5">螺旋矩阵</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="算法笔记">算法笔记</h1>
+<h2 id="二分查找">二分查找</h2>
+<p>原理：二分查找适用于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>为单调函数的序列（即已经排序好的数组），通过边界变换每次缩短一半的查找范围，使得比起顺序查找，时间复杂度降低为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lg(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
+<h3 id="题目1-基本二分查找">题目1 <a href="https://leetcode-cn.com/problems/binary-search/">基本二分查找</a></h3>
+<p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
+<p>示例1：</p>
+<pre><code>输入: nums = [-1,0,3,5,9,12], target = 9     
+输出: 4       
+解释: 9 出现在 nums 中并且下标为 4 
+</code></pre>
+<p>示例2：</p>
+<pre><code>输入: nums = [-1,0,3,5,9,12], target = 2
+输出: -1
+解释: 2 不存在 nums 中因此返回 -1
+</code></pre>
+<p>代码：</p>
+<pre><code>class Solution:
+    def search(self, nums: List[int], target: int) -&gt; int:
+        l, r = 0, len(nums) - 1
+        while l &lt;= r:
+            mid = (l + r) // 2
+            print(mid)
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] &lt; target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return -1
+</code></pre>
+<p>题目解释： 没有任何变形的二分法，只要注意边界l， r和不存在的情况即可</p>
+<h3 id="题目2搜索插入位置">题目2<a href="https://leetcode-cn.com/problems/search-insert-position/">搜索插入位置</a></h3>
+<p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p><strong>请必须使用时间复杂度为 O(log n) 的算法</strong><br>
+示例1：</p>
+<pre><code>输入: nums = [1,3,5,6], target = 5
+输出: 2
+</code></pre>
+<p>示例 2:</p>
+<pre><code>输入: nums = [1,3,5,6], target = 7
+输出: 4
+</code></pre>
+<p>代码</p>
+<pre><code>class Solution:
+    def searchInsert(self, nums: List[int], target: int) -&gt; int:
+        l, r = 0, len(nums) - 1
+        while l &lt;= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] &lt; target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return l 
+</code></pre>
+<p>思路：跟普通二分没有区别，唯一要注意的是如果没有找到要返回插入的位置，由于如果元素插在索引为0的地方，那么说明元素比数组的元素都小，此时 l=0 不会移动，r往左移动，这时候返回l就可以了。<br>
+当元素不插在0位置的时候，由于最后一定会执行一次 l = mid + 1，所以l在插入的位置。<br>
+所以直接返回 l 即可。</p>
+<h3 id="题目3-在排序数组中查找元素的第一个和最后一个位置">题目3<a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array"> 在排序数组中查找元素的第一个和最后一个位置</a></h3>
+<p>给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。</p>
+<p>如果数组中不存在目标值 target，返回 [-1, -1]。</p>
+<p>进阶：<br>
+**你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？**示例 1：<br>
+示例1：</p>
+<pre><code>输入：nums = [5,7,7,8,8,10], target = 8
+输出：[3,4]
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：nums = [5,7,7,8,8,10], target = 6
+输出：[-1,-1]
+</code></pre>
+<p>示例 3：</p>
+<pre><code>输入：nums = [], target = 0
+输出：[-1,-1]
+</code></pre>
+<p>思路：题目描述时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，则想到要用二分查找，但是二分查找只能找到一个index，并不能保证左右边界会被索引到。<br>
+此时，我们可以考虑不断的二分去查找边界，然后把每次的值作为 <strong>flag</strong> 设置起来就可以找到左右边界了。</p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def searchRange(self, nums: List[int], target: int) -&gt; List[int]:
+        if len(nums) == 0:
+            return [-1, -1]
+        
+        res1, res2 = -1, -1
+        #左边界
+        ls, rs = 0, len(nums) - 1
+        while ls &lt;= rs:
+            mid = (ls + rs) // 2
+            if nums[mid] &lt; target:
+                ls = mid + 1
+            elif nums[mid] &gt; target:
+                rs = mid - 1
+            else:
+                res1 = mid
+                rs = mid - 1
+            
+        #右边界
+        le, re = 0, len(nums) - 1
+        while le &lt;= re:
+            mid = (le + re) // 2
+            if nums[mid] &lt; target:
+                le = mid + 1
+            elif nums[mid] &gt; target:
+                re = mid - 1
+            else:
+                res2 = mid
+                le = mid + 1
+        
+        return [res1, res2]
+</code></pre>
+<h3 id="题目4求平方根">题目4<a href="https://leetcode-cn.com/problems/sqrtx/">求平方根</a></h3>
+<p>给你一个非负整数 x ，计算并返回 x 的 算术平方根 。</p>
+<p>由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。</p>
+<p>注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。<br>
+示例 1：</p>
+<pre><code>输入：x = 4
+输出：2
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：x = 8
+输出：2
+解释：8 的算术平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。
+</code></pre>
+<p>思路： 由于题目限定不能用内置函数，那么可以用牛顿迭代<br>
+牛顿迭代法就是找一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mn>0</mn><mo separator="true">,</mo><mi>f</mi><mo>(</mo><mi>x</mi><mn>0</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(x0,f(x0))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">0</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> 做切线，切线与 $ x$ 轴的交点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span> ，过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mn>1</mn><mo separator="true">,</mo><mi>f</mi><mo>(</mo><mi>x</mi><mn>1</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(x1, f(x1))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>再做切线，得到与 $ x$ 轴的交点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>， 随着不断渐近，值会越来越逼近方程的真实根。<br>
+我们求a的平方根就是求方程<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(x) - a = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>的解，再由地推公式简化得到根<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>x</mi><mi>t</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn><mo>(</mo><mi>n</mi><mi>o</mi><mi>w</mi><mo>+</mo><mi>a</mi><mi mathvariant="normal">/</mi><mi>n</mi><mi>o</mi><mi>w</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">next = 1 / 2(now + a / now)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">2</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord">/</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span>,我们<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">a0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord">0</span></span></span></span>取<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>0</mn><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x0 = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>得到基本根，再设置循环跳出条件即可.</p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def mySqrt(self, x: int) -&gt; int:
+        if x == 0:
+            return 0
+
+        #初始值取a0 = 1
+        next = (1 + x) / 2
+        while True:
+            next = 1 / 2 * (next + x / next)
+            if abs(next ** 2 - x) &lt; 1e-2:
+                return int(next)
+                break
+</code></pre>
+<p>注意最后要返回整数，要加int函数</p>
+<h2 id="移除元素">移除元素</h2>
+<h3 id="移除元素链接">移除元素<a href="https://leetcode-cn.com/problems/remove-element/">链接</a></h3>
+<p>给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 1：</p>
+<pre><code>输入：nums = [3,2,2,3], val = 3
+输出：2, nums = [2,2]
+解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：nums = [0,1,2,2,3,0,4,2], val = 2
+输出：5, nums = [0,1,4,0,3]
+解释：函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。
+</code></pre>
+<p>思路：题目要求在数组上进行原地修改而不使用额外的空间，我们立刻想到同为in place的快排，利用快排的划分。<br>
+将目标元素作为pivot然后两个指针分别指向首位，当满足条件时交换i，j的值，将数组分成两个部分，前面以i结束，均是和目标不同的数组，后部分以j为开端为value组成的数组。</p>
+<p>由于题目没有限制数组的返回条件，直接返回第一个value的index(也就是i)就可以了</p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def removeElement(self, nums: List[int], val: int) -&gt; int:
+        if len(nums) == 0:
+            return 0
+            
+        i, j = 0, len(nums) - 1
+        while i &lt;= j:
+            if nums[i] == val:
+                if nums[j] == val:
+                    j -= 1
+                    continue
+                else:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    j -= 1
+            i += 1
+        return i
+</code></pre>
+<h3 id="删除有序数组的重复项链接">删除有序数组的重复项<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">链接</a></h3>
+<p>给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。</p>
+<p>示例 1：</p>
+<pre><code>输入：nums = [1,1,2]
+输出：2, nums = [1,2]
+解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：nums = [0,0,1,1,1,2,2,3,3,4]
+输出：5, nums = [0,1,2,3,4]
+解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
+</code></pre>
+<p>思路：注意时排序好的数组，这样我们直接用两个指针，一个指针指向当前的最大元素，另一个指针则遍历整个数组，当出现比当前元素大的情况时，i指针向前移动一位并赋值，当遍历完整个数组之后，i就是所有不重复元素的下标。注意返回长度 $ i + 1$</p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        if len(nums) &lt;= 1:
+            return len(nums)
+        
+        i, j = 0, 1
+        while j &lt; len(nums):
+            if nums[j] &gt; nums[i]:
+                nums[i + 1] = nums[j]
+                i += 1
+                j += 1
+            else:
+                j += 1
+        return i + 1
+</code></pre>
+<h2 id="移动零链接">移动零<a href="https://leetcode-cn.com/problems/move-zeroes/">链接</a></h2>
+<p>给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。</p>
+<p>示例:</p>
+<pre><code>输入: [0,1,0,3,12]
+输出: [1,3,12,0,0]
+</code></pre>
+<p>说明:<br>
+1. 必须在原数组上操作，不能拷贝额外的数组。<br>
+2. 尽量减少操作次数。</p>
+<p>思路：同样in place的排序还是想到快排的划分，设置两个指针i，j分别指向最后一个不为0<br>
+的元素位置和0后面的第一个位置，遍历数组依次交换即可。</p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def moveZeroes(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        i, j = -1, 0
+        while j &lt; len(nums):
+            if nums[j] == 0:
+                j += 1
+                continue
+            else:
+                nums[i + 1], nums[j] = nums[j], nums[i + 1]
+                i += 1
+                j += 1
+</code></pre>
+<h2 id="有序数组的平方">有序数组的平方</h2>
+<p>给你一个按 <strong>非递减顺序</strong> 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</p>
+<p>示例 1：</p>
+<pre><code>输入：nums = [-4,-1,0,3,10]
+输出：[0,1,9,16,100]
+解释：平方后，数组变为 [16,1,0,9,100]
+排序后，数组变为 [0,1,9,16,100]
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：nums = [-7,-3,2,3,11]
+输出：[4,9,9,49,121]
+</code></pre>
+<p>思路：由于复数平方可能变大，所以不能直接平方，但数组本身时递增的，而平方之后非负部分和负数部分也是递增的，所以考虑分成两部分来排序。设立头尾指针i，j遍历数组然后依顺序添加到新的空白数组，最后返回翻转的结果</p>
+<p><strong>注意：</strong><br>
+<strong>由于python reverse是in place的操作，所以不会返回任何值，用slice方式返回结果</strong></p>
+<p>代码：</p>
+<pre><code class="language-python">class Solution:
+    def sortedSquares(self, nums: List[int]) -&gt; List[int]:
+        i, j = 0 ,len(nums) - 1
+        res = []
+        while i &lt;= j:
+            if nums[i] ** 2 &gt; nums[j] ** 2:
+                res.append(nums[i] ** 2)
+                i += 1
+            else:
+                res.append(nums[j] ** 2)
+                j -= 1
+        return res[::-1]
+</code></pre>
+<p>两种反转python list的方法</p>
+<pre><code class="language-python">my_list = [1, 2, 3, 4, 5]
+reverse_list = list(reversed(my_list))
+print(reverse_list)
+
+my_list = [1, 2, 3, 4, 5]
+reverse_list = my_list[::-1]
+print(reverse_list)
+</code></pre>
+<h2 id="长度最小的子数组">长度最小的子数组</h2>
+<p><a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/">题目链接</a></p>
+<p>给定一个含有 n 个正整数的数组和一个正整数 target 。</p>
+<p>找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。</p>
+<pre><code>示例 1：
+
+输入：target = 7, nums = [2,3,1,2,4,3]
+输出：2
+解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+
+示例 2：
+
+输入：target = 4, nums = [1,4,4]
+输出：1
+
+示例 3：
+
+输入：target = 11, nums = [1,1,1,1,1,1,1,1]
+输出：0
+</code></pre>
+<p>思路：长度最小的子数组</p>
+<ol>
+<li>可以使用暴力解法，遍历两次数组，第一层循环决定起始位置，第二层循环以第一层循环为起点遍历整个数组。时间复杂度<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>=</mo><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">(n + n - 1 + n - 2 + ... + 1) = O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li>
+<li>使用滑动窗体，当找到一个子数组 &gt;= Target的时候记录子数组的长度，然后右移起始点继续进行比较，直到不满足大于等于target，然后移动终点进行循环。时间复杂度：遍历整个数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>,，每次对起点的移动都是常数次，所以总时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></li>
+</ol>
+<p>滑动窗体代码</p>
+<pre><code class="language-python">class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -&gt; int:
+        i, j = 0, 0
+        _sum = 0
+        res = float('inf')
+        for j in range(len(nums)):
+            _sum += nums[j]
+            while _sum &gt;= target:
+                res = min(res, j - i + 1)
+                _sum -= nums[i]
+                i += 1
+        return res if res != float('inf') else 0
+</code></pre>
+<p>暴力解法(leetcode 上python暴力解法不能通过，c++可以)</p>
+<pre><code class="language-python">class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -&gt; int:
+        res = float('inf')
+        for i in range(len(nums)):
+            _sum = 0
+            for j in range(i, len(nums)):
+                _sum += nums[j]
+                if _sum &gt;= target:
+                    res = min(res, j - i + 1)
+        return res if res != float('inf') else 0
+</code></pre>
+<h2 id="最小覆盖字串">最小覆盖字串</h2>
+<p><a href="https://leetcode-cn.com/problems/">题目</a><br>
+给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 &quot;&quot; 。</p>
+<p>注意：</p>
+<ol>
+<li>对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。</li>
+<li>如果 s 中存在这样的子串，我们保证它是唯一的答案。</li>
+</ol>
+<p>示例 1：</p>
+<pre><code>输入：s = &quot;ADOBECODEBANC&quot;, t = &quot;ABC&quot;
+输出：&quot;BANC&quot;
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：s = &quot;a&quot;, t = &quot;a&quot;
+输出：&quot;a&quot;
+</code></pre>
+<p>示例 3:</p>
+<pre><code>输入: s = &quot;a&quot;, t = &quot;aa&quot;
+输出: &quot;&quot;
+解释: t 中两个字符 'a' 均应包含在 s 的子串中，
+因此没有符合条件的子字符串，返回空字符串。
+</code></pre>
+<p>思路：两种解法，一种是暴力循环，i 遍历整个数组，j 以 i 为起始位置向后遍历，当 j 到达末尾或者 t 中的元素全部找到，停止循环进入下一次查找</p>
+<p>暴力查找代码（超出时间限制，不能AC）</p>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        d = dict()
+        l = float('inf')
+        for t in t:
+            if d.get(t) is not None:
+                d[t] += 1
+            else:
+                d[t] = 1
+        for i in range(len(s)):
+            temp = d.copy()
+            j = i
+            while j &lt; len(s) and len(temp) != 0:
+                if temp.get(s[j]) is not None:
+                    if temp[s[j]] &gt; 1:
+                        val = temp[s[j]]
+                        temp[s[j]] = val - 1
+                        j += 1
+                    else:
+                        del temp[s[j]]
+                        j += 1
+                else:
+                    j += 1
+            if len(temp) == 0 and j - i &lt; l:
+                l = min(l, j - i)
+                res = s[i : j]
+        return res if l != float('inf') else ''  
+</code></pre>
+<p>第二种方法是滑动窗口，i 依然作为起始，用 j 向后遍历，每当找到 t 中的所有元素时， i 向前移动到第一个属于 t 的元素并记录长度，然后 i 右移继续寻找 t 的字串。</p>
+<p>图示：<br>
+第一步：找到包含 t 的子串<br>
+<img src="https://pic.leetcode-cn.com/5b9c45086d9e92698ed07e52906f733fa5d20a041db19c1a7cb59661bae3ff1e-image.png" alt="步骤一" loading="lazy"><br>
+<img src="https://pic.leetcode-cn.com/a51af8640675557508b92ea1f188065b49650820fbb1ec8640b4b30b46f4f3f2-image.png" alt="" loading="lazy"></p>
+<p>第二步：找到字串第一个属于 t  的字符<br>
+<img src="https://pic.leetcode-cn.com/29950c0dc380f33fdb423e389284d47b23509abc5080823643a866fee68f8211-image.png" alt="步骤二" loading="lazy"></p>
+<p>第三步：移动到下一格，继续循环<br>
+<img src="https://pic.leetcode-cn.com/9109ce08db98a1f30372b96853fa95f8bf0b63cb2c926090dae0bfdd75ef52ba-image.png" alt="步骤三" loading="lazy"></p>
+<p>滑动窗口</p>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        need = collections.defaultdict(int)
+        for c in t:
+            need[c] += 1
+        need_cnt = len(t)
+        i = 0
+        res = (0, float('inf'))
+        for j, c in enumerate(s):
+            if need[c] &gt; 0:
+                need_cnt -= 1
+            need[c] -= 1
+            if need_cnt == 0:
+                while True:
+                    if need[s[i]] == 0:
+                        break
+                    need[s[i]] += 1
+                    i += 1
+                if j - i &lt; res[1] - res[0]:
+                    res = (i, j)
+                need[s[i]] += 1
+                need_cnt += 1
+                i += 1
+        return s[res[0]: res[1] + 1] if res[1] != float('inf') else '' 
+</code></pre>
+<h2 id="螺旋矩阵"><a href="https://leetcode-cn.com/problems/spiral-matrix-ii/">螺旋矩阵</a></h2>
+<p>给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。<br>
+示例 1：<br>
+<img src="https://assets.leetcode.com/uploads/2020/11/13/spiraln.jpg" alt="" loading="lazy"></p>
+<pre><code>输入：n = 3
+输出：[[1,2,3],[8,9,4],[7,6,5]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入：n = 1
+输出：[[1]]
+</code></pre>
+<p>思路：遵循左闭右开的原则， 从左到右 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 从上到下  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>  从右到左  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>  从下到上 进行遍历。<br>
+<img src="https://img-blog.csdnimg.cn/2020121623550681.png" alt="" loading="lazy"></p>
+<p>代码</p>
+<pre><code class="language-python">class Solution:
+    def generateMatrix(self, n: int) -&gt; List[List[int]]:
+        #构建初始矩阵
+        matrix = [[0] * n for _ in range(n)]
+
+        left, right, up, down = 0, n - 1, 0, n -1
+        number = 1 #插入的数字
+
+        while left &lt; right and up &lt; down:
+
+            # 从左到右填充上边
+            for x in range(left, right):
+                matrix[up][x] = number
+                number += 1
+            
+            #从上到下填充右边
+            for y in range(up, down):
+                matrix[y][right] = number
+                number += 1
+
+            #从右到左填充下边
+            for x in range(right, left, -1):
+                matrix[down][x] = number
+                number += 1
+
+            #从下到上填充左边
+            for y in range(down, up, -1):
+                matrix[y][left] = number
+                number += 1
+
+            # 缩小填充范围
+            left += 1
+            right -= 1
+            up += 1
+            down -= 1
+        
+        # 如果时奇数，填充中间
+        if n % 2:
+            matrix[n // 2][n // 2] = number
+        
+        return matrix
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BST]]></title>
+        <id>https://nymphy2.github.io/post/bst/</id>
+        <link href="https://nymphy2.github.io/post/bst/">
+        </link>
+        <updated>2022-01-06T07:33:24.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91">二叉搜索树</a>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96">问题转化</a></li>
+<li><a href="#%E5%90%84%E7%A7%8D%E5%B7%B2%E7%9F%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%97%AE%E9%A2%98">各种已知的数据结构的问题</a>
+<ul>
+<li><a href="#%E6%99%AE%E9%80%9A%E6%95%B0%E7%BB%84unsorted-arraylist">普通数组(unsorted array/list)</a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84sorted-array">排序数组(sorted array)</a></li>
+<li><a href="#%E9%93%BE%E8%A1%A8sorted-list">链表(sorted list)</a></li>
+<li><a href="#heaps-maxmin">Heaps： max/min</a></li>
+</ul>
+</li>
+<li><a href="#binary-search-tree">Binary Search Tree</a>
+<ul>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6">约束条件</a></li>
+<li><a href="#bst%E7%9A%84%E4%BC%98%E7%82%B9">BST的优点</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E4%B8%80%E9%A2%97bst">如何构建一颗BST</a>
+<ul>
+<li><a href="#%E6%9E%84%E5%BB%BA%E7%BB%93%E7%82%B9%E7%94%9F%E6%88%90%E5%99%A8">构建结点生成器</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E5%87%BD%E6%95%B0">查找函数</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E5%87%BD%E6%95%B0">插入函数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%B0%8F%E5%80%BC">获取最小值</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC">获取最大值</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%BB%93%E7%82%B9">删除结点</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E4%BC%98%E5%8C%96">删除优化</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86">遍历</a>
+<ul>
+<li><a href="#preorder%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86">preorder(先序遍历)</a></li>
+<li><a href="#inorder%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86">inorder(中序遍历)</a></li>
+<li><a href="#postorder%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86">postorder(后序遍历)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">完整测试代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="二叉搜索树">二叉搜索树</h1>
+<h2 id="问题">问题</h2>
+<p>有一个机场，并且有一个跑道用于飞机的降落，飞机降落的具体时间是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>，降落过程需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> min， 我们在一个集合 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∣</mo></mrow><annotation encoding="application/x-tex">\mid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mrel">∣</span></span></span></span> R <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∣</mo></mrow><annotation encoding="application/x-tex">\mid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mrel">∣</span></span></span></span> = n 中，如何在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度内确定飞机是否能降落呢？</p>
+<h2 id="问题转化">问题转化</h2>
+<p>集合R是时间的集合，每一个元素都是一个时间，我们的目标是在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度内找到一个元素插入的点，并且比较前一个元素和后一个元素，判断能否插入。</p>
+<p>例如：R = {37， 41.2， 49， 56.3}, k = 3</p>
+<ol>
+<li>插入53， ok，因为53介于49和56.3，并且差值大于3</li>
+<li>插入44， 不允许，因为44和41.2差值小于3</li>
+<li>插入20 不允许，因为20是过去的时间</li>
+</ol>
+<h2 id="各种已知的数据结构的问题">各种已知的数据结构的问题</h2>
+<h3 id="普通数组unsorted-arraylist">普通数组(unsorted array/list)</h3>
+<p>未排序的数组所有的操作都消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度，不符合要求</p>
+<h3 id="排序数组sorted-array">排序数组(sorted array)</h3>
+<ol>
+<li>找到插入的位置 R[ i ]，可以使用binary search，消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></li>
+<li>比较 R[ i - 1 ]和 R[ i + 1 ],消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+<li>插入 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，因为要右移所有插入之后的元素</li>
+</ol>
+<h3 id="链表sorted-list">链表(sorted list)</h3>
+<p>插入只需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>，但无法使用binary search</p>
+<h3 id="heaps-maxmin">Heaps： max/min</h3>
+<p>因为我们插入实在末尾插入的，插入的元素只会在对应的分支进行比较然后找到适合的位置，不会对另一个分支进行查找<br>
+缺陷：查找 &gt;= k / &lt;= k的元素花费 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，同理，dictionary也有这个缺陷。</p>
+<h2 id="binary-search-tree">Binary Search Tree</h2>
+<p>目前，我们已知的数据结构无法做到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>r</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Insert(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 和查找上一个最小的元素以及下一个比它大的元素同时在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时间复杂度内完成，但如果 sorted array能够让Insertion操作在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时间复杂度内完成，那么我们就可以达到目标。</p>
+<h3 id="特点">特点</h3>
+<p>BST拥有一个结点值 node x，和一个结点的value <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>，并且不同于Heap的地方在于它具有指向关系，pointer：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>a</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">parent(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">left(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">right(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></p>
+<h3 id="约束条件">约束条件</h3>
+<ol>
+<li>对于所有的node x，如果y是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">left(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>,那么 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> &lt;= <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></li>
+<li>同理，对于右子树，有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> &lt;= <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></li>
+<li>对于左右子树而言，也必须是BST，并且没有重复结点</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://media.geeksforgeeks.org/wp-content/uploads/BSTSearch.png" alt="alt 二叉搜索树" loading="lazy"></figure>
+<h3 id="bst的优点">BST的优点</h3>
+<ol>
+<li>对于插入，我们只需要不断比较取寻找左右分支，最后就可以找到插入的位置，花费时间为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span>，h为树的高度。</li>
+<li>对于寻找小于t的值的数量，也只需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span> 时间复杂度。
+<ol>
+<li>往下寻找到目标值</li>
+<li>加上小于nodes的节点数</li>
+<li>加上left分支</li>
+</ol>
+</li>
+</ol>
+<h2 id="如何构建一颗bst">如何构建一颗BST</h2>
+<h3 id="构建结点生成器">构建结点生成器</h3>
+<p>代码</p>
+<pre><code>class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+</code></pre>
+<p>初始结点构建器</p>
+<h3 id="查找函数">查找函数</h3>
+<ol>
+<li>通过root的value判断是否等于要查找的值，等于直接返回 True</li>
+<li>如果root的value &gt; key，往左子树查找，直到找到value或者找到叶节点返回False</li>
+<li>同理，如果 value &lt; key, 往右子树查找</li>
+</ol>
+<p>代码</p>
+<pre><code>def search(root, key):
+	if root.val == key:
+		return True
+	if root.val &lt; key:
+		if root.right is None:
+			return False
+		return search(root.right, key)
+	return search(root.left, key) if root.left is not None else False
+</code></pre>
+<h3 id="插入函数">插入函数</h3>
+<ol>
+<li>如果插入的刚好时叶节点，直接返回创建的结点</li>
+<li>如果插入的key &lt; root.value 往左子树寻找插入位置</li>
+<li>同理， 如果插入的 key &gt; root.value，往右子树寻找插入位置</li>
+<li>如果插入的 key == value，则不做修改，直接返回 root（不违背重复原则）</li>
+</ol>
+<p>代码</p>
+<pre><code>def insert(root, key):
+	if root is None:
+		return Node(key)
+	else:
+		if root.val &lt; key:
+			root.right = insert(root.right, key)
+		elif root.val == key:
+			return root 
+		else:
+			root.left = insert(root.left, key)
+	return root 
+</code></pre>
+<h3 id="获取最小值">获取最小值</h3>
+<p>往左子树不断的寻找，找到最左边的叶子结点即可</p>
+<p>代码</p>
+<pre><code>def get_min(root):
+	current = root
+	while current.left is not None:
+		current = current.left
+	return current
+</code></pre>
+<h3 id="获取最大值">获取最大值</h3>
+<p>同理，往右子树不断寻找，直到找到最右边的叶子结点</p>
+<p>代码：</p>
+<pre><code>def get_max(root):
+	current = root
+	while current.right is not None:
+		current = current.right
+	return current
+</code></pre>
+<h3 id="删除结点">删除结点</h3>
+<p>1.删除结点没有左右孩子，直接删除即可<br>
+<img src=":/6be3cb950438442c8a7980142d8bf74f" alt="QQ截图20211228010112.png" loading="lazy"><br>
+2. 删除结点右一个孩子，则将删除结点赋值为他的孩子结点，并且删除孩子<br>
+<img src=":/6eeb1b84fbda42819879ee493b9fd5e0" alt="一个孩子删除.png" loading="lazy"><br>
+3. 删除的孩子右两个结点，则需要找到删除结点的下一个中序后继结点，然后将该节点的值替换为中序后继结点的值，最后删除中序后继结点<br>
+<img src=":/84361ad8dd7844079c8fbb99a3efa7a7" alt="两个孩子删除.png" loading="lazy"></p>
+<p>代码</p>
+<pre><code>def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+	else:
+		#结点值和删除的结点值一样
+		
+		#根结点只有一个子结点或者没有子结点
+		if root.left is None:
+			temp = root.right
+			root = None
+			return temp
+		elif root.right is None:
+			temp = root.left
+			root = None
+			return temp
+		#获取中序后继节点
+		temp = get_min(root.right)
+		#赋值
+		root.val = temp.val
+		#删除中序后继节点
+		root.right = delete_node(root.right, temp.val)
+	return root
+</code></pre>
+<p>流程：找到删除的结点  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 通过对右子树使用get_min（）找到下个中序后继结点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 将要删除结点的值赋值为后继结点的值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 递归的删除右子树的后继结点</p>
+<h3 id="删除优化">删除优化</h3>
+<p>上面的删除过程我们使用递归去删除后继结点，这里时有可以优化的地方的，因为有两个孩子的 root 的后继只有两种情况：</p>
+<ol>
+<li>后继结点是右子树的最左叶子</li>
+<li>后继结点是右孩子</li>
+</ol>
+<p>对于这样的情况，我们可以通过追迹后继结点的 parent 结点，当找到最左叶子时，我们同时保留了它的 parent的信息，而这个最左叶子就是我们的后继，将值赋给 root 之后，我们将 parent 的左子树设置为空结点，删除succ 的目的也就达到了。</p>
+<p>代码</p>
+<pre><code>def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+		# 有else分支，最后一定返回完整的root，这里没必要返回
+		#return root
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+		#return root
+	else:
+		#两个孩子都为空
+		# if root.left and root.right is None:
+		# 	return None
+		#有一个孩子为空
+		if root.left is None:	
+			temp = root.right
+			root = None
+			return temp
+		elif root.left is None:
+			temp = root.left
+			root = None
+			return temp
+		#有两个孩子的情况
+		succ_parent = root
+		#查找后继结点
+		succ = root.right
+		while succ.left is not None:
+			succ_parent = succ
+			succ = succ_parent.left
+		if succ_parent != root:
+			succ_parent.left = succ.right
+		else:
+			succ_parent.right = succ.right
+		root.val = succ.val
+	return root
+</code></pre>
+<p>删除结点的时间复杂度： 最坏情况我们可能要遍历到最深的叶子结点，所以是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span> 。当我们BST为一个链表时，时间复杂度最坏为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 。</p>
+<h3 id="遍历">遍历</h3>
+<h4 id="preorder先序遍历">preorder(先序遍历)</h4>
+<p>先遍历根结点，再遍历左子树，最后遍历右子树<br>
+代码</p>
+<pre><code>def preorder(root):
+	if root:
+		#首先打印接结点值
+		print(root.val)
+		#递归左孩子
+		preorder(root.left)
+		#最后递归右孩子
+		preorder(root.right)
+</code></pre>
+<h4 id="inorder中序遍历">inorder(中序遍历)</h4>
+<p>中序遍历先遍历左子树，再遍历根结点，最后遍历右子树<br>
+代码</p>
+<pre><code>def inorder(root):
+	if root:
+		#首先递归左孩子
+		inorder(root.left)
+		#打印接结点值
+		print(root.val)
+		#最后递归右孩子
+		inorder(root.right)
+</code></pre>
+<h4 id="postorder后序遍历">postorder(后序遍历)</h4>
+<p>先遍历左子树，再遍历右子树，最后遍历根结点<br>
+代码</p>
+<pre><code>def postorder(root):
+	if root:
+		#首先递归左子树
+		postorder(root.left)
+		然后递归右子树
+		postorder(root.right)
+		最后打印根结点值
+		print(root.val)
+</code></pre>
+<h3 id="完整测试代码">完整测试代码</h3>
+<p>代码</p>
+<pre><code>class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def search(root, key):
+	if root.val == key:
+		return True
+	if root.val &lt; key:
+		if root.right is None:
+			return False
+		return search(root.right, key)
+	return search(root.left, key) if root.left is not None else False
+
+def insert(root, key):
+	if root is None:
+		return Node(key)
+	else:
+		#根结点的值小于key，将右孩子做为根继续插入
+		if root.val &lt; key:
+			root.right = insert(root.right, key)
+		#根结点的值等于key，直接返回，不修改BST
+		elif root.val == key:
+			return root 
+		#根结点的值大于key，将左孩子做为根继续插入
+		else:
+			root.left = insert(root.left, key)
+	return root 
+
+def get_min(root):
+	current = root
+	while current.left is not None:
+		current = current.left
+	return current
+
+def get_max(root):
+	current = root
+	while current.right is not None:
+		current = current.right
+	return current
+
+def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+		return root
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+		return root
+	else:
+		#两个孩子都为空
+		# if root.left and root.right is None:
+		# 	return None
+		#有一个孩子为空
+		if root.left is None:	
+			temp = root.right
+			root = None
+			return temp
+		elif root.left is None:
+			temp = root.left
+			root = None
+			return temp
+		succ_parent = root
+		succ = root.right
+		while succ.left is not None:
+			succ_parent = succ
+			succ = succ_parent.left
+		if succ_parent != root:
+			succ_parent.left = succ.right
+		else:
+			succ_parent = succ.right
+		root.val = succ.val
+	return root
+
+def inorder(root):
+	if root:
+		#首先递归左孩子
+		inorder(root.left)
+		#打印接结点值
+		print(root.val)
+		#最后递归右孩子
+		inorder(root.right)
+
+def preorder(root):
+	if root:
+		print(root.val)
+		preorder(root.left)
+		preorder(root.right)
+
+def postorder(root):
+	if root:
+		postorder(root.left)
+		postorder(root.right)
+		print(root.val)
+
+
+if __name__ == '__main__':
+	r = Node(50)
+	r = insert(r, 30)
+	r = insert(r, 20)
+	r = insert(r, 40)
+	r = insert(r, 70)
+	r = insert(r, 60)
+	r = insert(r, 80)
+
+	inorder(r)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://nymphy2.github.io/post/hello-gridea/</id>
+        <link href="https://nymphy2.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="http://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>

@@ -1,0 +1,611 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BST | Gridea</title>
+<link rel="shortcut icon" href="https://nymphy2.github.io/favicon.ico?v=1641454772320">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://nymphy2.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="BST | Gridea - Atom Feed" href="https://nymphy2.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+二叉搜索树
+
+问题
+问题转化
+各种已知的数据结构的问题
+
+普通数组(unsorted array/list)
+排序数组(sorted array)
+链表(sorted list)
+Heaps： max/min
+
+
+Binary Searc..." />
+    <meta name="keywords" content="BST,6046notes" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://nymphy2.github.io">
+  <img class="avatar" src="https://nymphy2.github.io/images/avatar.png?v=1641454772320" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              BST
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-01-06
+              </span>
+              <span>
+                12 min read
+              </span>
+              
+                <a href="https://nymphy2.github.io/tag/_bQnNe2S-/" class="post-tag">
+                  # BST
+                </a>
+              
+                <a href="https://nymphy2.github.io/tag/bQHXIt1Qvs/" class="post-tag">
+                  # 6046notes
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><ul class="markdownIt-TOC">
+<li><a href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91">二叉搜索树</a>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96">问题转化</a></li>
+<li><a href="#%E5%90%84%E7%A7%8D%E5%B7%B2%E7%9F%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%97%AE%E9%A2%98">各种已知的数据结构的问题</a>
+<ul>
+<li><a href="#%E6%99%AE%E9%80%9A%E6%95%B0%E7%BB%84unsorted-arraylist">普通数组(unsorted array/list)</a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84sorted-array">排序数组(sorted array)</a></li>
+<li><a href="#%E9%93%BE%E8%A1%A8sorted-list">链表(sorted list)</a></li>
+<li><a href="#heaps-maxmin">Heaps： max/min</a></li>
+</ul>
+</li>
+<li><a href="#binary-search-tree">Binary Search Tree</a>
+<ul>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6">约束条件</a></li>
+<li><a href="#bst%E7%9A%84%E4%BC%98%E7%82%B9">BST的优点</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E4%B8%80%E9%A2%97bst">如何构建一颗BST</a>
+<ul>
+<li><a href="#%E6%9E%84%E5%BB%BA%E7%BB%93%E7%82%B9%E7%94%9F%E6%88%90%E5%99%A8">构建结点生成器</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E5%87%BD%E6%95%B0">查找函数</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E5%87%BD%E6%95%B0">插入函数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%B0%8F%E5%80%BC">获取最小值</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC">获取最大值</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%BB%93%E7%82%B9">删除结点</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E4%BC%98%E5%8C%96">删除优化</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86">遍历</a>
+<ul>
+<li><a href="#preorder%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86">preorder(先序遍历)</a></li>
+<li><a href="#inorder%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86">inorder(中序遍历)</a></li>
+<li><a href="#postorder%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86">postorder(后序遍历)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">完整测试代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="二叉搜索树">二叉搜索树</h1>
+<h2 id="问题">问题</h2>
+<p>有一个机场，并且有一个跑道用于飞机的降落，飞机降落的具体时间是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>，降落过程需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> min， 我们在一个集合 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∣</mo></mrow><annotation encoding="application/x-tex">\mid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mrel">∣</span></span></span></span> R <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∣</mo></mrow><annotation encoding="application/x-tex">\mid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mrel">∣</span></span></span></span> = n 中，如何在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度内确定飞机是否能降落呢？</p>
+<h2 id="问题转化">问题转化</h2>
+<p>集合R是时间的集合，每一个元素都是一个时间，我们的目标是在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度内找到一个元素插入的点，并且比较前一个元素和后一个元素，判断能否插入。</p>
+<p>例如：R = {37， 41.2， 49， 56.3}, k = 3</p>
+<ol>
+<li>插入53， ok，因为53介于49和56.3，并且差值大于3</li>
+<li>插入44， 不允许，因为44和41.2差值小于3</li>
+<li>插入20 不允许，因为20是过去的时间</li>
+</ol>
+<h2 id="各种已知的数据结构的问题">各种已知的数据结构的问题</h2>
+<h3 id="普通数组unsorted-arraylist">普通数组(unsorted array/list)</h3>
+<p>未排序的数组所有的操作都消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 时间复杂度，不符合要求</p>
+<h3 id="排序数组sorted-array">排序数组(sorted array)</h3>
+<ol>
+<li>找到插入的位置 R[ i ]，可以使用binary search，消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></li>
+<li>比较 R[ i - 1 ]和 R[ i + 1 ],消耗 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+<li>插入 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，因为要右移所有插入之后的元素</li>
+</ol>
+<h3 id="链表sorted-list">链表(sorted list)</h3>
+<p>插入只需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>，但无法使用binary search</p>
+<h3 id="heaps-maxmin">Heaps： max/min</h3>
+<p>因为我们插入实在末尾插入的，插入的元素只会在对应的分支进行比较然后找到适合的位置，不会对另一个分支进行查找<br>
+缺陷：查找 &gt;= k / &lt;= k的元素花费 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，同理，dictionary也有这个缺陷。</p>
+<h2 id="binary-search-tree">Binary Search Tree</h2>
+<p>目前，我们已知的数据结构无法做到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>r</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Insert(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 和查找上一个最小的元素以及下一个比它大的元素同时在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时间复杂度内完成，但如果 sorted array能够让Insertion操作在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(lgn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时间复杂度内完成，那么我们就可以达到目标。</p>
+<h3 id="特点">特点</h3>
+<p>BST拥有一个结点值 node x，和一个结点的value <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>，并且不同于Heap的地方在于它具有指向关系，pointer：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>a</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">parent(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">left(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">right(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></p>
+<h3 id="约束条件">约束条件</h3>
+<ol>
+<li>对于所有的node x，如果y是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">left(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>,那么 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> &lt;= <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></li>
+<li>同理，对于右子树，有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> &lt;= <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi><mo>(</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">key(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></li>
+<li>对于左右子树而言，也必须是BST，并且没有重复结点</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://media.geeksforgeeks.org/wp-content/uploads/BSTSearch.png" alt="alt 二叉搜索树" loading="lazy"></figure>
+<h3 id="bst的优点">BST的优点</h3>
+<ol>
+<li>对于插入，我们只需要不断比较取寻找左右分支，最后就可以找到插入的位置，花费时间为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span>，h为树的高度。</li>
+<li>对于寻找小于t的值的数量，也只需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span> 时间复杂度。
+<ol>
+<li>往下寻找到目标值</li>
+<li>加上小于nodes的节点数</li>
+<li>加上left分支</li>
+</ol>
+</li>
+</ol>
+<h2 id="如何构建一颗bst">如何构建一颗BST</h2>
+<h3 id="构建结点生成器">构建结点生成器</h3>
+<p>代码</p>
+<pre><code>class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+</code></pre>
+<p>初始结点构建器</p>
+<h3 id="查找函数">查找函数</h3>
+<ol>
+<li>通过root的value判断是否等于要查找的值，等于直接返回 True</li>
+<li>如果root的value &gt; key，往左子树查找，直到找到value或者找到叶节点返回False</li>
+<li>同理，如果 value &lt; key, 往右子树查找</li>
+</ol>
+<p>代码</p>
+<pre><code>def search(root, key):
+	if root.val == key:
+		return True
+	if root.val &lt; key:
+		if root.right is None:
+			return False
+		return search(root.right, key)
+	return search(root.left, key) if root.left is not None else False
+</code></pre>
+<h3 id="插入函数">插入函数</h3>
+<ol>
+<li>如果插入的刚好时叶节点，直接返回创建的结点</li>
+<li>如果插入的key &lt; root.value 往左子树寻找插入位置</li>
+<li>同理， 如果插入的 key &gt; root.value，往右子树寻找插入位置</li>
+<li>如果插入的 key == value，则不做修改，直接返回 root（不违背重复原则）</li>
+</ol>
+<p>代码</p>
+<pre><code>def insert(root, key):
+	if root is None:
+		return Node(key)
+	else:
+		if root.val &lt; key:
+			root.right = insert(root.right, key)
+		elif root.val == key:
+			return root 
+		else:
+			root.left = insert(root.left, key)
+	return root 
+</code></pre>
+<h3 id="获取最小值">获取最小值</h3>
+<p>往左子树不断的寻找，找到最左边的叶子结点即可</p>
+<p>代码</p>
+<pre><code>def get_min(root):
+	current = root
+	while current.left is not None:
+		current = current.left
+	return current
+</code></pre>
+<h3 id="获取最大值">获取最大值</h3>
+<p>同理，往右子树不断寻找，直到找到最右边的叶子结点</p>
+<p>代码：</p>
+<pre><code>def get_max(root):
+	current = root
+	while current.right is not None:
+		current = current.right
+	return current
+</code></pre>
+<h3 id="删除结点">删除结点</h3>
+<p>1.删除结点没有左右孩子，直接删除即可<br>
+<img src=":/6be3cb950438442c8a7980142d8bf74f" alt="QQ截图20211228010112.png" loading="lazy"><br>
+2. 删除结点右一个孩子，则将删除结点赋值为他的孩子结点，并且删除孩子<br>
+<img src=":/6eeb1b84fbda42819879ee493b9fd5e0" alt="一个孩子删除.png" loading="lazy"><br>
+3. 删除的孩子右两个结点，则需要找到删除结点的下一个中序后继结点，然后将该节点的值替换为中序后继结点的值，最后删除中序后继结点<br>
+<img src=":/84361ad8dd7844079c8fbb99a3efa7a7" alt="两个孩子删除.png" loading="lazy"></p>
+<p>代码</p>
+<pre><code>def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+	else:
+		#结点值和删除的结点值一样
+		
+		#根结点只有一个子结点或者没有子结点
+		if root.left is None:
+			temp = root.right
+			root = None
+			return temp
+		elif root.right is None:
+			temp = root.left
+			root = None
+			return temp
+		#获取中序后继节点
+		temp = get_min(root.right)
+		#赋值
+		root.val = temp.val
+		#删除中序后继节点
+		root.right = delete_node(root.right, temp.val)
+	return root
+</code></pre>
+<p>流程：找到删除的结点  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 通过对右子树使用get_min（）找到下个中序后继结点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 将要删除结点的值赋值为后继结点的值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 递归的删除右子树的后继结点</p>
+<h3 id="删除优化">删除优化</h3>
+<p>上面的删除过程我们使用递归去删除后继结点，这里时有可以优化的地方的，因为有两个孩子的 root 的后继只有两种情况：</p>
+<ol>
+<li>后继结点是右子树的最左叶子</li>
+<li>后继结点是右孩子</li>
+</ol>
+<p>对于这样的情况，我们可以通过追迹后继结点的 parent 结点，当找到最左叶子时，我们同时保留了它的 parent的信息，而这个最左叶子就是我们的后继，将值赋给 root 之后，我们将 parent 的左子树设置为空结点，删除succ 的目的也就达到了。</p>
+<p>代码</p>
+<pre><code>def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+		# 有else分支，最后一定返回完整的root，这里没必要返回
+		#return root
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+		#return root
+	else:
+		#两个孩子都为空
+		# if root.left and root.right is None:
+		# 	return None
+		#有一个孩子为空
+		if root.left is None:	
+			temp = root.right
+			root = None
+			return temp
+		elif root.left is None:
+			temp = root.left
+			root = None
+			return temp
+		#有两个孩子的情况
+		succ_parent = root
+		#查找后继结点
+		succ = root.right
+		while succ.left is not None:
+			succ_parent = succ
+			succ = succ_parent.left
+		if succ_parent != root:
+			succ_parent.left = succ.right
+		else:
+			succ_parent.right = succ.right
+		root.val = succ.val
+	return root
+</code></pre>
+<p>删除结点的时间复杂度： 最坏情况我们可能要遍历到最深的叶子结点，所以是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span> 。当我们BST为一个链表时，时间复杂度最坏为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 。</p>
+<h3 id="遍历">遍历</h3>
+<h4 id="preorder先序遍历">preorder(先序遍历)</h4>
+<p>先遍历根结点，再遍历左子树，最后遍历右子树<br>
+代码</p>
+<pre><code>def preorder(root):
+	if root:
+		#首先打印接结点值
+		print(root.val)
+		#递归左孩子
+		preorder(root.left)
+		#最后递归右孩子
+		preorder(root.right)
+</code></pre>
+<h4 id="inorder中序遍历">inorder(中序遍历)</h4>
+<p>中序遍历先遍历左子树，再遍历根结点，最后遍历右子树<br>
+代码</p>
+<pre><code>def inorder(root):
+	if root:
+		#首先递归左孩子
+		inorder(root.left)
+		#打印接结点值
+		print(root.val)
+		#最后递归右孩子
+		inorder(root.right)
+</code></pre>
+<h4 id="postorder后序遍历">postorder(后序遍历)</h4>
+<p>先遍历左子树，再遍历右子树，最后遍历根结点<br>
+代码</p>
+<pre><code>def postorder(root):
+	if root:
+		#首先递归左子树
+		postorder(root.left)
+		然后递归右子树
+		postorder(root.right)
+		最后打印根结点值
+		print(root.val)
+</code></pre>
+<h3 id="完整测试代码">完整测试代码</h3>
+<p>代码</p>
+<pre><code>class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def search(root, key):
+	if root.val == key:
+		return True
+	if root.val &lt; key:
+		if root.right is None:
+			return False
+		return search(root.right, key)
+	return search(root.left, key) if root.left is not None else False
+
+def insert(root, key):
+	if root is None:
+		return Node(key)
+	else:
+		#根结点的值小于key，将右孩子做为根继续插入
+		if root.val &lt; key:
+			root.right = insert(root.right, key)
+		#根结点的值等于key，直接返回，不修改BST
+		elif root.val == key:
+			return root 
+		#根结点的值大于key，将左孩子做为根继续插入
+		else:
+			root.left = insert(root.left, key)
+	return root 
+
+def get_min(root):
+	current = root
+	while current.left is not None:
+		current = current.left
+	return current
+
+def get_max(root):
+	current = root
+	while current.right is not None:
+		current = current.right
+	return current
+
+def delete_node(root, key):
+	if root is None:
+		return root
+	if root.val &lt; key:
+		root.right = delete_node(root.right, key)
+		return root
+	elif root.val &gt; key:
+		root.left = delete_node(root.left, key)
+		return root
+	else:
+		#两个孩子都为空
+		# if root.left and root.right is None:
+		# 	return None
+		#有一个孩子为空
+		if root.left is None:	
+			temp = root.right
+			root = None
+			return temp
+		elif root.left is None:
+			temp = root.left
+			root = None
+			return temp
+		succ_parent = root
+		succ = root.right
+		while succ.left is not None:
+			succ_parent = succ
+			succ = succ_parent.left
+		if succ_parent != root:
+			succ_parent.left = succ.right
+		else:
+			succ_parent = succ.right
+		root.val = succ.val
+	return root
+
+def inorder(root):
+	if root:
+		#首先递归左孩子
+		inorder(root.left)
+		#打印接结点值
+		print(root.val)
+		#最后递归右孩子
+		inorder(root.right)
+
+def preorder(root):
+	if root:
+		print(root.val)
+		preorder(root.left)
+		preorder(root.right)
+
+def postorder(root):
+	if root:
+		postorder(root.left)
+		postorder(root.right)
+		print(root.val)
+
+
+if __name__ == '__main__':
+	r = Node(50)
+	r = insert(r, 30)
+	r = insert(r, 20)
+	r = insert(r, 40)
+	r = insert(r, 70)
+	r = insert(r, 60)
+	r = insert(r, 80)
+
+	inorder(r)
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91">二叉搜索树</a>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96">问题转化</a></li>
+<li><a href="#%E5%90%84%E7%A7%8D%E5%B7%B2%E7%9F%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%97%AE%E9%A2%98">各种已知的数据结构的问题</a>
+<ul>
+<li><a href="#%E6%99%AE%E9%80%9A%E6%95%B0%E7%BB%84unsorted-arraylist">普通数组(unsorted array/list)</a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84sorted-array">排序数组(sorted array)</a></li>
+<li><a href="#%E9%93%BE%E8%A1%A8sorted-list">链表(sorted list)</a></li>
+<li><a href="#heaps-maxmin">Heaps： max/min</a></li>
+</ul>
+</li>
+<li><a href="#binary-search-tree">Binary Search Tree</a>
+<ul>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6">约束条件</a></li>
+<li><a href="#bst%E7%9A%84%E4%BC%98%E7%82%B9">BST的优点</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E4%B8%80%E9%A2%97bst">如何构建一颗BST</a>
+<ul>
+<li><a href="#%E6%9E%84%E5%BB%BA%E7%BB%93%E7%82%B9%E7%94%9F%E6%88%90%E5%99%A8">构建结点生成器</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E5%87%BD%E6%95%B0">查找函数</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E5%87%BD%E6%95%B0">插入函数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%B0%8F%E5%80%BC">获取最小值</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC">获取最大值</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%BB%93%E7%82%B9">删除结点</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E4%BC%98%E5%8C%96">删除优化</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86">遍历</a>
+<ul>
+<li><a href="#preorder%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86">preorder(先序遍历)</a></li>
+<li><a href="#inorder%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86">inorder(中序遍历)</a></li>
+<li><a href="#postorder%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86">postorder(后序遍历)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">完整测试代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://nymphy2.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://nymphy2.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
